@@ -1,6 +1,6 @@
 var map = new Array(); //方块对应的数组
 var color = ['noCell','redCell','greenCell','yellowCell','blueCell','purpleCell'];
-var board = document.getElementById('board');
+var board;
 var cellNum = 3; //每次增加的方块数
 var cellLive = 0;
 var cellFocus = {
@@ -13,13 +13,33 @@ var cellFocus = {
 var minusFlag = 0;
 
 window.onload = function(){
+	initHtml();
 	initArray();
 	initBind();
-
 	for(var i=0;i<cellNum;i+=1){
 		addCell();
 		cellLive+=1;
 	}
+}
+
+function initHtml(){
+	var div,ul,li;
+	var i,j;
+	div = document.createElement('div');
+	div.className = 'board';
+	div.setAttribute('id','board');
+	for(i=0;i<7;i++){
+		ul = document.createElement('ul');
+		ul.className = 'row';
+		for (j=0;j<7;j++){
+			li = document.createElement('li');
+			li.className = 'noCell';
+			ul.appendChild(li);
+		} 
+		div.appendChild(ul);
+	}	
+	document.getElementsByTagName('body')[0].appendChild(div);
+	board = document.getElementById('board');
 }
 
 function initArray(){

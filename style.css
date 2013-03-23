@@ -5,11 +5,41 @@
 	padding:0;	
 }
 
-.redCell{background:#ff4444}
-.greenCell{background:#99cc00}
-.yellowCell{background:#ffbb33}
-.blueCell{background:#33b5e5}
-.purpleCell{background:#aa66cc}
+.redCell{
+	background:#ff4444;
+	-webkit-transition-property:background,margin,height,width;
+	-webkit-transition-duration:1s,0s,0s,0s;
+	-webkit-transition-timing-function:ease;
+	-webkit-transition-delay:0s;
+	}
+.greenCell{
+	background:#99cc00;
+	-webkit-transition-property:background,margin,height,width;
+	-webkit-transition-duration:1s,0s,0s,0s;
+	-webkit-transition-timing-function:ease;
+	-webkit-transition-delay:0s;
+	}
+.yellowCell{
+	background:#ffbb33;
+	-webkit-transition-property:background,margin,height,width;
+	-webkit-transition-duration:1s,0s,0s,0s;
+	-webkit-transition-timing-function:ease;
+	-webkit-transition-delay:0s;
+	}
+.blueCell{
+	background:#33b5e5;
+	-webkit-transition-property:background,margin,height,width;
+	-webkit-transition-duration:1s,0s,0s,0s;
+	-webkit-transition-timing-function:ease;
+	-webkit-transition-delay:0s;
+	}
+.purpleCell{
+	background:#aa66cc;
+	-webkit-transition-property:background,margin,height,width;
+	-webkit-transition-duration:1s,0s,0s,0s;
+	-webkit-transition-timing-function:ease;
+	-webkit-transition-delay:0s;
+	}
 
 .redCellOn{background:#cc0000;margin:0 !important;width:52px !important;height:52px !important;}
 .greenCellOn{background:#669900;margin:0 !important;width:52px !important;height:52px !important;}
@@ -17,11 +47,16 @@
 .blueCellOn{background:#0099cc;margin:0 !important;width:52px !important;height:52px !important;}
 .purpleCellOn{background:#9933cc;margin:0 !important;width:52px !important;height:52px !important;}
 
-.noCell{background:#f2f2f2;}
-
+.noCell{
+	background:#f2f2f2;
+	-webkit-transition-property:background,margin,height,width;
+	-webkit-transition-duration:1s,0s,0s,0s;
+	-webkit-transition-timing-function:ease;
+	-webkit-transition-delay:0s;
+	}
 
 .board {
-	margin:100px auto;width:370px;
+	margin:100px auto;width:364px;
 }
 
 .row {
@@ -32,6 +67,7 @@
 .row li {
 	float:left;width:50px;height:50px;margin:1px;
 }
+
 
 
 
