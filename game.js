@@ -11,15 +11,23 @@ var cellFocus = {
 		className: 'noCell'
 	}//方块被点击
 var minusFlag = 0;
+var mapStorage = localStorage.getItem('mapStorage');
 
 window.onload = function(){
 	initHtml();
 	initArray();
 	initBind();
-	for(var i=0;i<cellNum;i+=1){
-		addCell();
-		cellLive+=1;
+	if(mapStorage === null){
+		for(var i=0;i<cellNum;i+=1){
+			addCell();
+			cellLive+=1;
+		}
 	}
+}
+
+function storage(){
+	localStorage.setItem('mapStorage', JSON.stringify(map));
+	mapStorage = localStorage.getItem('mapStorage');
 }
 
 function initHtml(){
@@ -43,37 +51,50 @@ function initHtml(){
 }
 
 function initArray(){
-	for(var i=-1;i<8;i+=1){
-	    map[i]=new Array();
-		for(var j=-1;j<8;j+=1){
-			map[i][j]={
-				value : 0,
-				left: 0,
-				leftTop: 0,
-				top: 0,
-				rightTop: 0,
-				right: 0,
-				rightBottom: 0,
-				bottom: 0,
-				leftBottom: 0
+	if(mapStorage == null){
+		for(var i=0;i<9;i+=1){
+		    map[i]=new Array();
+			for(var j=0;j<9;j+=1){
+				map[i][j]={
+					value : 0,
+					left: 0,
+					leftTop: 0,
+					top: 0,
+					rightTop: 0,
+					right: 0,
+					rightBottom: 0,
+					bottom: 0,
+					leftBottom: 0
+				}
 			}
 		}
+	}
+	else{
+		map = JSON.parse(mapStorage);
+		for(var i=1;i<8;i+=1){
+			for(var j=1;j<8;j+=1){
+				if(map[i][j].value != 0){
+					var _self = board.getElementsByTagName('ul')[j-1].getElementsByTagName('li')[i-1];
+					_self.className = color[map[i][j].value];
+				}
+			}
+		}	
 	}
 }
 
 function initBind(){
-	for(var i=0; i<7; i+=1){
+	for(var i=1; i<8; i+=1){
 		(function(i){
-			for(var j=0; j<7; j+=1){
+			for(var j=1; j<8; j+=1){
 				(function(j){
-					var _self = board.getElementsByTagName('ul')[i].getElementsByTagName('li')[j];
+					var _self = board.getElementsByTagName('ul')[i-1].getElementsByTagName('li')[j-1];
 					_self.addEventListener('click',function(){
 						if( _self.className === 'noCell'){
 							if(cellFocus.flag === 1 && map[j][i].value === 0){
 								_self.className = cellFocus.className;
 								map[j][i].value = cellFocus.value;
 								map[cellFocus.col][cellFocus.row].value = 0;
-								board.getElementsByTagName('ul')[cellFocus.row].getElementsByTagName('li')[cellFocus.col].className = 'noCell' ;
+								board.getElementsByTagName('ul')[cellFocus.row-1].getElementsByTagName('li')[cellFocus.col-1].className = 'noCell' ;
 								cellFocus.flag = 0;
 								clean(j,i);
 								if(minusFlag == 0)
@@ -95,6 +116,7 @@ function initBind(){
 								cellFocus.className = this.className.replace('On','');
 							}
 						}
+						storage();
 					})
 				}(j))
 			}
@@ -119,15 +141,16 @@ function next(){
 function addCell(){
 	var newRow,newCol,newColor;
 	do{
-		newRow = randomNum(6);
-		newCol = randomNum(6);
+		newRow = randomNum(6)+1;
+		newCol = randomNum(6)+1;
 		newColor = randomNum(4)+1;
 	}while( map[newCol][newRow].value != 0 )
 	var row = board.getElementsByTagName('ul');
-	var col = row[newRow].getElementsByTagName('li')[newCol];
+	var col = row[newRow-1].getElementsByTagName('li')[newCol-1];
 	col.className = color[newColor];
 	map[newCol][newRow].value = newColor;	
 	clean(newCol,newRow);
+	storage();
 }
 
 function clean(j,i){
@@ -169,14 +192,14 @@ function clean(j,i){
 		while(map[j-k][i].value === sign){ 
 			map[j-k][i].value = 0;
 			cellLive-=1;
-			board.getElementsByTagName('ul')[i].getElementsByTagName('li')[j-k].className = 'noCell' ;
+			board.getElementsByTagName('ul')[i-1].getElementsByTagName('li')[j-k-1].className = 'noCell' ;
 			k+=1; 
 			}; 
 		k=1; 
 		while(map[j+k][i].value === sign){ 
 			map[j+k][i].value = 0;
 			cellLive-=1;
-			board.getElementsByTagName('ul')[i].getElementsByTagName('li')[j+k].className = 'noCell' ;
+			board.getElementsByTagName('ul')[i-1].getElementsByTagName('li')[j+k-1].className = 'noCell' ;
 			k+=1; 
 			}; 
 		k=0; 
@@ -186,14 +209,14 @@ function clean(j,i){
 		while(map[j-k][i-k].value === sign){ 
 			map[j-k][i-k].value = 0;
 			cellLive-=1;
-			board.getElementsByTagName('ul')[i-k].getElementsByTagName('li')[j-k].className = 'noCell' ;
+			board.getElementsByTagName('ul')[i-k-1].getElementsByTagName('li')[j-k-1].className = 'noCell' ;
 			k+=1; 
 			}; 
 		k=1; 
 		while(map[j+k][i+k].value === sign){ 
 			map[j+k][i+k].value = 0;
 			cellLive-=1;
-			board.getElementsByTagName('ul')[i+k].getElementsByTagName('li')[j+k].className = 'noCell' ;
+			board.getElementsByTagName('ul')[i+k-1].getElementsByTagName('li')[j+k-1].className = 'noCell' ;
 			k+=1; 
 			}; 
 		k=0; 
@@ -203,14 +226,14 @@ function clean(j,i){
 		while(map[j][i-k].value === sign){ 
 			map[j][i-k].value = 0;
 			cellLive-=1;
-			board.getElementsByTagName('ul')[i-k].getElementsByTagName('li')[j].className = 'noCell' ;
+			board.getElementsByTagName('ul')[i-k-1].getElementsByTagName('li')[j-1].className = 'noCell' ;
 			k+=1; 
 			}; 
 		k=1; 
 		while(map[j][i+k].value === sign){ 
 			map[j][i+k].value = 0;
 			cellLive-=1;
-			board.getElementsByTagName('ul')[i+k].getElementsByTagName('li')[j].className = 'noCell' ;
+			board.getElementsByTagName('ul')[i+k-1].getElementsByTagName('li')[j-1].className = 'noCell' ;
 			k+=1; 
 			}; 
 		k=0; 
@@ -220,14 +243,14 @@ function clean(j,i){
 		while(map[j-k][i+k].value === sign){ 
 			map[j-k][i+k].value = 0;
 			cellLive-=1;
-			board.getElementsByTagName('ul')[i+k].getElementsByTagName('li')[j-k].className = 'noCell' ;
+			board.getElementsByTagName('ul')[i+k-1].getElementsByTagName('li')[j-k-1].className = 'noCell' ;
 			k+=1; 
 			}; 
 		k=1; 
 		while(map[j+k][i-k].value === sign){ 
 			map[j+k][i-k].value = 0;
 			cellLive-=1;
-			board.getElementsByTagName('ul')[i-k].getElementsByTagName('li')[j+k].className = 'noCell' ;
+			board.getElementsByTagName('ul')[i-k-1].getElementsByTagName('li')[j+k-1].className = 'noCell' ;
 			k+=1; 
 			}; 
 		k=0;
