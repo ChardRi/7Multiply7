@@ -14,15 +14,7 @@ var minusFlag = 0;
 var mapStorage = localStorage.getItem('mapStorage');
 
 window.onload = function(){
-	initHtml();
-	initArray();
-	initBind();
-	if(mapStorage === null){
-		for(var i=0;i<cellNum;i+=1){
-			addCell();
-			cellLive+=1;
-		}
-	}
+	init();
 }
 
 function storage(){
@@ -30,9 +22,88 @@ function storage(){
 	mapStorage = localStorage.getItem('mapStorage');
 }
 
+function init(){
+	var _div,_p,_ul,_li,_span;	
+	if(checkStorage()){
+		var map = JSON.parse(mapStorage);
+		_div = document.createElement('div');
+		_div.className = 'begin';
+		_div.setAttribute('id','begin');
+		document.getElementsByTagName('body')[0].appendChild(_div);
+		_p = document.createElement('p');
+		_ul = document.createElement('ul');
+		_ul.className = 'resume';
+		_ul.setAttribute('id','resume');
+		_li = document.createElement('li');
+		for(var i=0;i<7;i++){
+			var ul = document.createElement('ul');
+			ul.className = 'row';
+			for (var j=0;j<7;j++){
+				var li = document.createElement('li');
+				li.className = color[map[j+1][i+1].value];
+				ul.appendChild(li);
+			} 
+			_li.appendChild(ul);
+		}	
+		_ul.appendChild(_li);
+		_li = document.createElement('li');
+		_li.innerHTML = 'Resume Game';
+		_ul.appendChild(_li);
+		_p.appendChild(_ul);
+		_div.appendChild(_p);
+		_p = document.createElement('p');
+		_ul = document.createElement('ul');
+		_ul.className = 'new';
+		_ul.setAttribute('id','new');
+		_span = document.createElement('span');
+		_li = document.createElement('li');
+		_li.appendChild(_span);
+		_ul.appendChild(_li);
+		_li = document.createElement('li');
+		_li.innerHTML = 'Start New Game';
+		_ul.appendChild(_li);
+		_p.appendChild(_ul);
+		_div.appendChild(_p);
+	}
+	else{
+		_div = document.createElement('div');
+		_div.className = 'begin';
+		_div.setAttribute('id','begin');
+		document.getElementsByTagName('body')[0].appendChild(_div);
+		_p = document.createElement('p');
+		_ul = document.createElement('ul');
+		_ul.className = 'new';
+		_ul.setAttribute('id','new');
+		_span = document.createElement('span');
+		_li = document.createElement('li');
+		_li.appendChild(_span);
+		_ul.appendChild(_li);
+		_li = document.createElement('li');
+		_li.innerHTML = 'Start New Game';
+		_ul.appendChild(_li);
+		_p.appendChild(_ul);
+		_div.appendChild(_p);
+	}
+	document.getElementById('resume').addEventListener('click',function(){
+		initHtml();
+		initArrayResume();
+		initBind();
+	})
+	document.getElementById('new').addEventListener('click',function(){
+		initHtml();
+		initArrayNew();
+		initBind();
+		for(var i=0;i<cellNum;i+=1){
+			addCell();
+			cellLive+=1;
+		}
+	})
+}
+
 function initHtml(){
 	var div,ul,li;
 	var i,j;
+	removeElement(document.getElementById('begin'));
 	div = document.createElement('div');
 	div.className = 'board';
 	div.setAttribute('id','board');
@@ -50,35 +121,34 @@ function initHtml(){
 	board = document.getElementById('board');
 }
 
-function initArray(){
-	if(mapStorage == null){
-		for(var i=0;i<9;i+=1){
-		    map[i]=new Array();
-			for(var j=0;j<9;j+=1){
-				map[i][j]={
-					value : 0,
-					left: 0,
-					leftTop: 0,
-					top: 0,
-					rightTop: 0,
-					right: 0,
-					rightBottom: 0,
-					bottom: 0,
-					leftBottom: 0
-				}
+function initArrayNew(){
+	for(var i=0;i<9;i+=1){
+	    map[i]=new Array();
+		for(var j=0;j<9;j+=1){
+			map[i][j]={
+				value : 0,
+				left: 0,
+				leftTop: 0,
+				top: 0,
+				rightTop: 0,
+				right: 0,
+				rightBottom: 0,
+				bottom: 0,
+				leftBottom: 0
 			}
 		}
 	}
-	else{
-		map = JSON.parse(mapStorage);
-		for(var i=1;i<8;i+=1){
-			for(var j=1;j<8;j+=1){
-				if(map[i][j].value != 0){
-					var _self = board.getElementsByTagName('ul')[j-1].getElementsByTagName('li')[i-1];
-					_self.className = color[map[i][j].value];
-				}
+}
+
+function initArrayResume(){
+	map = JSON.parse(mapStorage);
+	for(var i=1;i<8;i+=1){
+		for(var j=1;j<8;j+=1){
+			if(map[i][j].value != 0){
+				var _self = board.getElementsByTagName('ul')[j-1].getElementsByTagName('li')[i-1];
+				_self.className = color[map[i][j].value];
 			}
-		}	
+		}
 	}
 }
 
@@ -260,4 +330,16 @@ function clean(j,i){
 
 function randomNum(range){
 	return Math.round(Math.random()*range) ; 
+}
+
+function removeElement(_element){
+     var _parentElement = _element.parentNode;
+     if(_parentElement){
+            _parentElement.removeChild(_element);
+     }
+}
+
+function checkStorage(){
+	if(mapStorage == null) return 0;
+	else return 1;
 }
