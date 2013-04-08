@@ -69,5 +69,15 @@
 }
 
 
+.begin{font:20px Helvetica;color:#333;margin:200px auto;width:300px;}
+.begin p{margin-top: 10px}
+.begin ul{list-style: none}
+.begin ul li{display: inline-block;vertical-align: middle;cursor:pointer;}
+.begin p>ul>li:last-child {padding-left:20px}
 
+.resume li ul li {width:10px !important;height:10px !important;}
 
+.new li:first-child {background:#ff4444;width:84px;height:84px;}
+.new li:first-child:hover {background:#cc0000;}
+
+.new li:first-child span {width:0;height:0;margin:27px 30px;border-top: 15px solid transparent;border-left: 24px solid #fff;border-bottom: 15px solid transparent;display: inline-block;}
