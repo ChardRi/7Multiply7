@@ -14,6 +14,7 @@ var minusFlag = 0;
 var mapStorage = localStorage.getItem('mapStorage');
 
 window.onload = function(){
+	console.log(mapStorage);
 	init();
 }
 
@@ -84,11 +85,13 @@ function init(){
 		_p.appendChild(_ul);
 		_div.appendChild(_p);
 	}
-	document.getElementById('resume').addEventListener('click',function(){
-		initHtml();
-		initArrayResume();
-		initBind();
-	})
+	if(document.getElementById('resume')){
+		document.getElementById('resume').addEventListener('click',function(){
+			initHtml();
+			initArrayResume();
+			initBind();
+		})
+	}	
 	document.getElementById('new').addEventListener('click',function(){
 		initHtml();
 		initArrayNew();
@@ -340,6 +343,6 @@ function removeElement(_element){
 }
 
 function checkStorage(){
-	if(mapStorage == null) return 0;
+	if(mapStorage === null) return 0;
 	else return 1;
 }
