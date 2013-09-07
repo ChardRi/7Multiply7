@@ -1,83 +1,139 @@
 @charset "utf-8";
 
 * {
-	margin:0;
-	padding:0;	
+    margin: 0;
+    padding: 0;
 }
 
-.redCell{
-	background:#ff4444;
-	-webkit-transition-property:background,margin,height,width;
-	-webkit-transition-duration:1s,0s,0s,0s;
-	-webkit-transition-timing-function:ease;
-	-webkit-transition-delay:0s;
-	}
-.greenCell{
-	background:#99cc00;
-	-webkit-transition-property:background,margin,height,width;
-	-webkit-transition-duration:1s,0s,0s,0s;
-	-webkit-transition-timing-function:ease;
-	-webkit-transition-delay:0s;
-	}
-.yellowCell{
-	background:#ffbb33;
-	-webkit-transition-property:background,margin,height,width;
-	-webkit-transition-duration:1s,0s,0s,0s;
-	-webkit-transition-timing-function:ease;
-	-webkit-transition-delay:0s;
-	}
-.blueCell{
-	background:#33b5e5;
-	-webkit-transition-property:background,margin,height,width;
-	-webkit-transition-duration:1s,0s,0s,0s;
-	-webkit-transition-timing-function:ease;
-	-webkit-transition-delay:0s;
-	}
-.purpleCell{
-	background:#aa66cc;
-	-webkit-transition-property:background,margin,height,width;
-	-webkit-transition-duration:1s,0s,0s,0s;
-	-webkit-transition-timing-function:ease;
-	-webkit-transition-delay:0s;
-	}
-
-.redCellOn{background:#cc0000;margin:0 !important;width:52px !important;height:52px !important;}
-.greenCellOn{background:#669900;margin:0 !important;width:52px !important;height:52px !important;}
-.yellowCellOn{background:#ff8800;margin:0 !important;width:52px !important;height:52px !important;}
-.blueCellOn{background:#0099cc;margin:0 !important;width:52px !important;height:52px !important;}
-.purpleCellOn{background:#9933cc;margin:0 !important;width:52px !important;height:52px !important;}
-
-.noCell{
-	background:#f2f2f2;
-	-webkit-transition-property:background,margin,height,width;
-	-webkit-transition-duration:1s,0s,0s,0s;
-	-webkit-transition-timing-function:ease;
-	-webkit-transition-delay:0s;
-	}
+.noCell {
+    background: #F2F2F2;
+}
 
 .board {
-	margin:100px auto;width:364px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 504px;
+    height: 504px;
+    -webkit-transform: translate(-50%,-50%);
 }
 
 .row {
-	clear:both;
-	list-style:none;
+    list-style: none;
+    clear: both;
 }
 
 .row li {
-	float:left;width:50px;height:50px;margin:1px;
+    float: left;
+    width: 70px;
+    height: 70px;
+    margin: 1px;
+    -webkit-transition-duration: 1s;
+    -webkit-transition-property: background;
+    -webkit-transition-timing-function: ease;
 }
 
+.row .redCell {
+    background: #F44;
+}
 
-.begin{font:20px Helvetica;color:#333;margin:200px auto;width:300px;}
-.begin p{margin-top: 10px}
-.begin ul{list-style: none}
-.begin ul li{display: inline-block;vertical-align: middle;cursor:pointer;}
-.begin p>ul>li:last-child {padding-left:20px}
+.row .greenCell {
+    background: #9C0;
+}
 
-.resume li ul li {width:10px !important;height:10px !important;}
+.row .yellowCell {
+    background: #FB3;
+}
 
-.new li:first-child {background:#ff4444;width:84px;height:84px;}
-.new li:first-child:hover {background:#cc0000;}
+.row .blueCell {
+    background: #33B5E5;
+}
 
-.new li:first-child span {width:0;height:0;margin:27px 30px;border-top: 15px solid transparent;border-left: 24px solid #fff;border-bottom: 15px solid transparent;display: inline-block;}
+.row .purpleCell {
+    background: #A6C;
+}
+
+.row .redCellOn {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+    background: #C00;
+}
+
+.row .greenCellOn {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+    background: #690;
+}
+
+.row .yellowCellOn {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+    background: #F80;
+}
+
+.row .blueCellOn {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+    background: #09C;
+}
+
+.row .purpleCellOn {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+    background: #93C;
+}
+
+.begin {
+    width: 300px;
+    margin: 100px auto;
+    color: #333;
+    font: 20px Helvetica;
+}
+
+.begin p {
+    margin-top: 40px;
+}
+
+.begin ul {
+    list-style: none;
+}
+
+.begin ul li {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.begin p>ul>li:last-child {
+    padding-left: 20px;
+}
+
+.resume li ul li {
+    width: 15px;
+    height: 15px;
+}
+
+.new li:first-child {
+    width: 119px;
+    height: 119px;
+    background: #F44;
+}
+
+.new li:first-child:hover {
+    background: #C00;
+}
+
+.new li:first-child span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin: 39px 46px;
+    border-top: 20px solid transparent;
+    border-left: 32px solid #FFF;
+    border-bottom: 20px solid transparent;
+}
